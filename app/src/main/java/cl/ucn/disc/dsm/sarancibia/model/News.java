@@ -4,6 +4,8 @@
 
 package cl.ucn.disc.dsm.sarancibia.model;
 
+import net.openhft.hashing.LongHashFunction;
+
 import org.threeten.bp.ZonedDateTime;
 
 /**
@@ -74,14 +76,37 @@ public class News {
      */
     public News(String title, String source, String author, String url, String urlImage, String description, String content, ZonedDateTime publishedAt) {
         // FIXME: add the hash (title + source + author)
-        this.id = 0L;
+
+        //Title replace
+        if (title == null ){
+            title = "No Title";
+        }
         this.title = title;
-        this.source = source;
+
+        // Source validation
+        if (source == null){
+            throw new IllegalArgumentException("Source no vaild");
+        }
+        if (source.length() <=4 ){
+            throw new IllegalArgumentException("Source size <= 4");
+        }
+        this.source =source;
+
+        // Hash calc
+        this.id = LongHashFunction.xx().hashChars(
+                title + "|" + source
+        );
+
         this.author = author;
         this.url = url;
         this.urlImage = urlImage;
         this.description = description;
         this.content = content;
+
+        //PublishedAt validation
+        if (publishedAt == null){
+            throw new IllegalArgumentException("The PublishedAt needed");
+        }
         this.publishedAt = publishedAt;
     }
 
