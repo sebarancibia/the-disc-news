@@ -44,22 +44,25 @@ public final class ContractsImplFaker implements Contracts{
     }
 
     /**
-     * Save one News to the Sustem.
+     * Save one News to the System.
      *
-     * @param news to save
+     * @param news to save.
      */
     @Override
-    public void save(News news) {
+    public void save(final News news) {
 
-        for (News n : this.listNews){
+        //  Nullity test
+        if(news == null){
+            throw new IllegalArgumentException("Need news != null");
+        }
 
-            //No duplicates allowed
+        for (News n: this.listNews) {
             if (n != null && n.getId().equals(news.getId())){
-                throw new IllegalArgumentException("News already in the list");
+                throw new IllegalArgumentException("News alredy in the list");
             }
-
         }
 
         this.listNews.add(news);
+
     }
 }
