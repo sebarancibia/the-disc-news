@@ -12,10 +12,16 @@ package externals* #ffcccc {
     package org.threeten.bp {
 
        class ZoneDateTime {
-
+            ...
         } 
 
     }      
+
+    package net.openhft.hashing{
+        class longHashFunction{
+            ...
+        }
+    }
 
 }
 
@@ -44,7 +50,7 @@ package cl.ucn.disc.dsm.sarancibia {
         }    
         
         News *--> "1" ZoneDateTime : - publishedAt
-
+        News ..> longHashFunction : <<use>>
     }
 
     package services #ccccff {
