@@ -16,7 +16,7 @@ public interface Contracts {
      * @param size of the list
      * @return the List of News
      */
-    List<News> retrievNews(Integer size);
+    List<News> retrieveNews(Integer size);
 
     /**
      * Save one News to the Sustem.
