@@ -4,8 +4,14 @@
 
 package cl.ucn.disc.dsm.sarancibia.model;
 
+import com.github.javafaker.Faker;
+
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.threeten.bp.ZoneId;
 import org.threeten.bp.ZonedDateTime;
 
@@ -17,33 +23,49 @@ import org.threeten.bp.ZonedDateTime;
 public final class TestNews {
 
     /**
+     * The Logger
+     */
+    private static final Logger log = LoggerFactory.getLogger(TestNews.class);
+
+    /**
+     *
+     * @param obj to transform.
+     * @return the String view of object.
+     */
+    private static String toString(final Object obj){
+        return ToStringBuilder.reflectionToString(obj, ToStringStyle.MULTI_LINE_STYLE);
+
+    }
+
+    /**
      * Testing the constructor.
      */
     @Test
     public void TestConstructor(){
 
+        log.debug("Starting the testConstructor ...");
+
+        // Generate test data
+        Faker faker = new Faker();
+
+        // Test: valid data
         {
             News news =
                     new News(
-                            "The Title",
-                            "The Source",
-                            "The Author",
-                            "The Url",
-                            "The Image Url",
-                            "The Description",
-                            "The Content",
+                            faker.book().title(),
+                            faker.book().publisher(),
+                            faker.book().author(),
+                            faker.internet().url(),
+                            faker.internet().url(),
+                            faker.book().genre(),
+                            faker.dune().quote(),
                             //  FIXME: Check the current zone in Chile
-                            ZonedDateTime.now(ZoneId.of("-3"))
-                    );
+                            ZonedDateTime.now(ZoneId.of("-3")));
+
+            log.info("TheNews: {}." , toString(news));
+
             //  Testing the internal class
             Assertions.assertNotNull(news.getId());
-            Assertions.assertEquals("The Title", news.getTitle());
-            Assertions.assertEquals("The Source", news.getSource());
-            Assertions.assertEquals("The Author", news.getAuthor());
-            Assertions.assertEquals("The Url", news.getUrl());
-            Assertions.assertEquals("The Image Url", news.getUrlImage());
-            Assertions.assertEquals("The Description", news.getDescription());
-            Assertions.assertEquals("The Content", news.getContent());
             Assertions.assertNotNull(news.getPublishedAt());
         }
 
@@ -61,8 +83,7 @@ public final class TestNews {
                         "The Image Url",
                         "The Description",
                         "The Content",
-                        null
-                );
+                        null);
 
                 //  Source null
                 new News(
@@ -79,7 +100,7 @@ public final class TestNews {
                 //  Source <= 4
                 new News(
                         "The Title",
-                        "null",
+                        "The",
                         "The Author",
                         "The Url",
                         "The Image Url",
@@ -104,6 +125,8 @@ public final class TestNews {
 
             Assertions.assertEquals("No Title", news.getTitle());
         }
+
+        log.debug("Done.");
     }
 
 }

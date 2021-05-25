@@ -89,11 +89,11 @@ public class News {
 
 
         //Title replace
-        this.title= (title != null && title.length()>0) ? title : "No title";
+        this.title= (title != null && title.length()>0) ? title : "No Title";
 
         // Source validation
         if (source == null){
-            throw new IllegalArgumentException("Source no vaild");
+            throw new IllegalArgumentException("Source was null");
         }
         if (source.length() <=4 ){
             throw new IllegalArgumentException("Source size <= 4");
