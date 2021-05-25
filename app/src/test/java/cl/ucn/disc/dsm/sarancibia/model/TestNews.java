@@ -6,8 +6,7 @@ package cl.ucn.disc.dsm.sarancibia.model;
 
 import com.github.javafaker.Faker;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -15,27 +14,19 @@ import org.slf4j.LoggerFactory;
 import org.threeten.bp.ZoneId;
 import org.threeten.bp.ZonedDateTime;
 
+import cl.ucn.disc.dsm.sarancibia.BaseTest;
+
 /**
  * The class.
  *
  * @author Sebastian Arancibia
  */
-public final class TestNews {
+public final class TestNews extends BaseTest {
 
     /**
      * The Logger
      */
     private static final Logger log = LoggerFactory.getLogger(TestNews.class);
-
-    /**
-     *
-     * @param obj to transform.
-     * @return the String view of object.
-     */
-    private static String toString(final Object obj){
-        return ToStringBuilder.reflectionToString(obj, ToStringStyle.MULTI_LINE_STYLE);
-
-    }
 
     /**
      * Testing the constructor.
@@ -59,10 +50,10 @@ public final class TestNews {
                             faker.internet().url(),
                             faker.book().genre(),
                             faker.dune().quote(),
-                            //  FIXME: Check the current zone in Chile
-                            ZonedDateTime.now(ZoneId.of("-3")));
+                            ZonedDateTime.now(ZoneId.of("-3"))
+                    );
 
-            log.info("TheNews: {}." , toString(news));
+            log.info("TheNews: {}" + toString(news));
 
             //  Testing the internal class
             Assertions.assertNotNull(news.getId());

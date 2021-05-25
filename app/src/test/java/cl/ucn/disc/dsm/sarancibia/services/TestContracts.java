@@ -4,19 +4,29 @@
 
 package cl.ucn.disc.dsm.sarancibia.services;
 
+import com.github.javafaker.Faker;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.threeten.bp.ZoneId;
 import org.threeten.bp.ZonedDateTime;
 
+import cl.ucn.disc.dsm.sarancibia.BaseTest;
 import cl.ucn.disc.dsm.sarancibia.model.News;
+import cl.ucn.disc.dsm.sarancibia.model.TestNews;
 
 /**
  * The class.
  *
  * @author Sebastian Arancibia
  */
-public final class TestContracts {
+public final class TestContracts extends BaseTest {
+
+    /**
+     * The Logger
+     */
+    private static final Logger log = LoggerFactory.getLogger(TestNews.class);
 
     /**
      * Testing the constructor.
@@ -36,17 +46,23 @@ public final class TestContracts {
         //The contracts implementation
         Contracts contracts = new ContractsImplFaker();
 
+        // The Faker
+        Faker faker = new Faker();
+
         // 1 News
         News news=
-        new News(
-                "The Title",
-                "The Source",
-                "The Author",
-                "The Url",
-                "The Image Url",
-                "The Description",
-                "The Content",
-                ZonedDateTime.now(ZoneId.of("-3")));
+                new News(
+                        faker.book().title(),
+                        faker.book().publisher(),
+                        faker.book().author(),
+                        faker.internet().url(),
+                        faker.internet().url(),
+                        faker.book().genre(),
+                        faker.dune().quote(),
+                        //  FIXME: Check the current zone in Chile
+                        ZonedDateTime.now(ZoneId.of("-3")));
+
+        log.info("TheNews: {}." , toString(news));
 
         //  Save into the backend
         contracts.save(news);
