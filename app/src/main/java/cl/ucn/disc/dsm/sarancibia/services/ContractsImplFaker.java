@@ -5,6 +5,7 @@
 package cl.ucn.disc.dsm.sarancibia.services;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -38,8 +39,13 @@ public final class ContractsImplFaker implements Contracts{
             throw new IllegalArgumentException("Size cannot be zero or negative");
         }
 
-        //Error! Warning!
-        return Collections.unmodifiableList(this.listNews);
+        // Check the list
+        if (size > this.listNews.size()){
+            throw new IndexOutOfBoundsException("Size > The current size");
+        }
+
+        // Return the last "size" inside of unmodifiable list
+        return Collections.unmodifiableList(this.listNews.subList(this.listNews.size() - size, this.listNews.size()));
 
     }
 
@@ -56,13 +62,18 @@ public final class ContractsImplFaker implements Contracts{
             throw new IllegalArgumentException("Need news != null");
         }
 
+        // No duplicates allowed
         for (News n: this.listNews) {
             if (n != null && n.getId().equals(news.getId())){
                 throw new IllegalArgumentException("News alredy in the list");
             }
         }
 
+        // Insert into the end of the list
         this.listNews.add(news);
+
+        // Sort the list by publishedAt
+        Collections.sort(this.listNews, (a, b) -> b.getPublishedAt().compareTo(a.getPublishedAt()));
 
     }
 }
