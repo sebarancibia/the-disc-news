@@ -29,6 +29,17 @@ public final class TestContracts extends BaseTest {
     private static final Logger log = LoggerFactory.getLogger(TestNews.class);
 
     /**
+     * Testing the constructor.
+     */
+    public void testConstructor(){
+
+        // Call the constructor
+        Contracts contracts = new ContractsImplFaker();
+        Assertions.assertNotNull(contracts, "Contracts null!");
+
+    }
+
+    /**
      * Testing the save.
      */
     @Test

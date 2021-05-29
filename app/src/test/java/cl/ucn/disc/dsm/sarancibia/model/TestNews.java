@@ -5,8 +5,6 @@
 package cl.ucn.disc.dsm.sarancibia.model;
 
 import com.github.javafaker.Faker;
-
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
