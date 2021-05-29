@@ -13,7 +13,7 @@ import org.threeten.bp.ZonedDateTime;
  *
  * @author Sebastian Arancibia
  */
-public class News {
+public final class News {
 
     /**
      * Unique id.
