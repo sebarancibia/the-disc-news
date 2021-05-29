@@ -4,13 +4,22 @@
 
 package cl.ucn.disc.dsm.sarancibia.services;
 
+import com.github.javafaker.Faker;
+
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.ZonedDateTime;
+
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
 import cl.ucn.disc.dsm.sarancibia.model.News;
 
+/**
+ * The class
+ *
+ * @author Sebastian Arancibia
+ */
 public final class ContractsImplFaker implements Contracts{
 
     /**
@@ -22,7 +31,29 @@ public final class ContractsImplFaker implements Contracts{
      * The constructor.
      */
     public ContractsImplFaker() {
-        // Nothing here
+
+        int N = 20;
+
+        // Generate test data
+        Faker faker = new Faker();
+
+        for (int i = 0; i < N; i++) {
+
+            // Test: valid data
+            News news =
+                    new News(
+                            faker.book().title(),
+                            faker.book().publisher(),
+                            faker.book().author(),
+                            faker.internet().url(),
+                            faker.internet().url(),
+                            faker.book().genre(),
+                            faker.dune().quote(),
+                            ZonedDateTime.now(ZoneId.of("-3")));
+
+            this.save((news));
+
+        }
     }
 
     /**

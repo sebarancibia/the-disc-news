@@ -22,6 +22,12 @@ package externals* #ffcccc {
             ...
         }
     }
+    
+    package com.github.javafaker.Faker{
+        class Faker {
+            ...
+        }
+    }
 
 }
 
@@ -63,9 +69,13 @@ package cl.ucn.disc.dsm.sarancibia {
         }
         Contracts ..> News : <<use>>
 
+        class ContractsImplFaker{  
+            - listNews : List<News>
+        }
+        ContractsImplFaker ..|> Contracts
+        ContractsImplFaker ..> Faker : <<use>>
+
     }
-
-
 
 }
 @enduml
