@@ -10,9 +10,9 @@
     <color name="cyan_600">#00ACC1</color>
     <color name="cyan_700">#0097A7</color>
     <color name="cyan_800">#00838F</color>
-    <color name="cyan_900">#006064</color>
-    <color name="cyan_1000">#005366</color>
-    <color name="cyan_1100">#006656</color>
+    <color name="cyan_900">#005064</color>
+    <color name="cyan_1000">#104A70</color>
+    <color name="cyan_1100">#062e69</color>
     <color name="cyan_1200">#560099</color>
     <color name="cyan_A100">#84FFFF</color>
     <color name="cyan_A200">#18FFFF</color>
