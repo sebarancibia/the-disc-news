@@ -51,15 +51,15 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    /**
+
     // Change the versionCode and versionName
     android.applicationVariants.all { variant ->
         variant.outputs.each { output ->
             output.versionCodeOverride = project.ext.buildTimestamp
-            output.versionCodeOverride = project.ext.buildFullName
+            output.versionNameOverride = project.ext.buildFullName
         }
     }
-    **/
+
     buildFeatures {
         // Process the build config
         buildConfig = true
