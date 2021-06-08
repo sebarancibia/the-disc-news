@@ -5,10 +5,12 @@
 package cl.ucn.disc.dsm.sarancibia;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import android.os.Bundle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import cl.ucn.disc.dsm.sarancibia.databinding.ActivityMainBinding;
+import cl.ucn.disc.dsm.sarancibia.model.NewsViewModel;
 
 /**
  * The Main class.
@@ -28,6 +30,11 @@ public final class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
 
     /**
+     * The NewsViewModel
+     */
+    private NewsViewModel newsViewModel;
+
+    /**
      * @param savedInstanceState the instance.
      */
     @Override
@@ -40,8 +47,31 @@ public final class MainActivity extends AppCompatActivity {
         // Set the toolbar
         this.setSupportActionBar(this.binding.toolbar);
 
+        // Build the NewsViewModel
+        this.newsViewModel = new ViewModelProvider(this).get(NewsViewModel.class);
+
+        // What to do with swipe?
+        this.binding.amSrlRefresh.setOnRefreshListener(() -> {
+
+            log.debug("Refreshing the News...");
+            this.newsViewModel.refresh();
+        });
+
+        // Observe the List of News
+        this.newsViewModel.getNews().observe(this,news -> {
+
+            log.debug("News: {}",news.size());
+
+            // Hide the rotating circle.
+            this.binding.amSrlRefresh.setRefreshing(false);
+
+        });
+
     }
 
+    /**
+     * OnStart
+     */
     @Override
     protected void onStart() {
         super.onStart();
