@@ -6,6 +6,9 @@ package cl.ucn.disc.dsm.sarancibia;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
 import android.os.Bundle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,6 +38,11 @@ public final class MainActivity extends AppCompatActivity {
     private NewsViewModel newsViewModel;
 
     /**
+     * The NewsAdapter
+     */
+    private NewsAdapter newsAdapter;
+
+    /**
      * @param savedInstanceState the instance.
      */
     @Override
@@ -57,25 +65,31 @@ public final class MainActivity extends AppCompatActivity {
             this.newsViewModel.refresh();
         });
 
+        // Instantiate the Adapter
+        this.newsAdapter = new NewsAdapter();
+
+        // Configure the RecyclerView
+        {
+            // 1. Layout
+            this.binding.amRvListNews.setLayoutManager(new LinearLayoutManager(this));
+            // 2. The Decoration
+            this.binding.amRvListNews.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+            // 3. The Adapter
+            this.binding.amRvListNews.setAdapter(this.newsAdapter);
+        }
+
         // Observe the List of News
         this.newsViewModel.getNews().observe(this,news -> {
 
             log.debug("News: {}",news.size());
 
+            // Notify the adapter with the list of news
+            this.newsAdapter.setNews(news);
+
             // Hide the rotating circle.
             this.binding.amSrlRefresh.setRefreshing(false);
 
         });
-
-    }
-
-    /**
-     * OnStart
-     */
-    @Override
-    protected void onStart() {
-        super.onStart();
-        log.debug("onStart ..");
 
     }
 
