@@ -11,4 +11,11 @@
     <color name="toolbarTitleTextColor">@color/cyan_800</color>
     <color name="toolbarSubtitleTextColor">@color/cyan_700</color>
     <color name="toolbarBackground">@color/cyan_1200</color>
+
+
+    <!-- The color text -->
+    <color name="textColorPrimary">@color/cyan_100</color>
+    <color name="textColorSecondary">@color/cyan_300</color>
+    <color name="textColorTerciary">@color/cyan_400</color>
+
 </resources>
