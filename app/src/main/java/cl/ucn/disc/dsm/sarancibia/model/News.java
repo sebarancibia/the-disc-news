@@ -95,8 +95,8 @@ public final class News {
         if (source == null){
             throw new IllegalArgumentException("Source was null");
         }
-        if (source.length() <=4 ){
-            throw new IllegalArgumentException("Source size <= 4 [" + source + "]");
+        if (source.length() < 2 ){
+            throw new IllegalArgumentException("Source size < 2 [" + source + "]");
         }
         this.source =source;
 
