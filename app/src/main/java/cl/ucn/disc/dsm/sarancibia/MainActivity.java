@@ -60,7 +60,6 @@ public final class MainActivity extends AppCompatActivity {
 
         // What to do with swipe?
         this.binding.amSrlRefresh.setOnRefreshListener(() -> {
-
             log.debug("Refreshing the News...");
             this.newsViewModel.refresh();
         });

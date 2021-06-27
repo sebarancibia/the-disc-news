@@ -10,7 +10,7 @@ import com.facebook.drawee.backends.pipeline.Fresco;
 /**
  * The Main App
  */
-public class App extends Application {
+public final class App extends Application {
 
     /**
      * Initialize the Application

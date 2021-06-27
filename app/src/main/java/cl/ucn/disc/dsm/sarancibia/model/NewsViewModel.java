@@ -5,6 +5,9 @@
 package cl.ucn.disc.dsm.sarancibia.model;
 
 import android.app.Application;
+import android.os.Handler;
+import android.os.Looper;
+
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -12,8 +15,11 @@ import androidx.lifecycle.MutableLiveData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.List;
+import java.util.concurrent.Executors;
+
 import cl.ucn.disc.dsm.sarancibia.services.Contracts;
 import cl.ucn.disc.dsm.sarancibia.services.ContractsImplFaker;
+import cl.ucn.disc.dsm.sarancibia.services.newsapi.NewsAPIService;
 
 
 /**
@@ -29,9 +35,9 @@ public class NewsViewModel extends AndroidViewModel {
     private static final Logger log = LoggerFactory.getLogger(NewsViewModel.class);
 
     /**
-     * The constract
+     * The contract
      */
-    private final Contracts contracts = new ContractsImplFaker();
+    private final Contracts contracts = new NewsAPIService(); //new ContractsImplFaker();
 
 
     /**
@@ -68,9 +74,19 @@ public class NewsViewModel extends AndroidViewModel {
             log.warn("No News, fetching from contracts...");
         }
 
-        // Get the news from the backend
-        // FIXME: 10 is good number?
-        this.theNews.setValue(this.contracts.retrieveNews(10));
+        // Background thread
+        {
+            Executors.newSingleThreadExecutor().execute(() -> {
+
+                List<News> news = this.contracts.retrieveNews(50);
+
+                // Get thread
+                new Handler(Looper.getMainLooper()).post(() ->{
+                    this.theNews.setValue(news);
+                });
+
+            });
+        }
 
     }
 }

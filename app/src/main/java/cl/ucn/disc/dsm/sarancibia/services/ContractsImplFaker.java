@@ -46,7 +46,7 @@ public final class ContractsImplFaker implements Contracts{
                             faker.book().publisher(),
                             faker.book().author(),
                             faker.internet().url(),
-                            faker.internet().url(),
+                            "https://www.originalcup.com/7447-large_default/neon-mask-nightmare.jpg",
                             faker.book().genre(),
                             faker.dune().quote(),
                             ZonedDateTime.now(ZoneId.of("-3")));
